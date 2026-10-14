@@ -1,0 +1,13 @@
+ 
+import numpy as np
+sales = np.array([
+    [100, 200, 300],
+    [150, 250, 350],
+    [200, 300, 400]
+])
+average = np.mean(sales)
+print("Name:Y.Sreenadh")
+print("roll No:192525166")
+print("Sales Matrix:")
+print(sales)
+print("Average Price:", average)
