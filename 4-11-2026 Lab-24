@@ -1,0 +1,23 @@
+
+from sklearn.neighbors import KNeighborsClassifier
+
+# Sample patient data: [fever, cough, fatigue]
+X = [[1, 1, 1], [1, 0, 1], [0, 1, 0],
+     [0, 0, 0], [1, 1, 0], [0, 1, 1]]
+y = [1, 1, 0, 0, 1, 0]
+
+# Get user input
+fever = int(input("Fever (0/1): "))
+cough = int(input("Cough (0/1): "))
+fatigue = int(input("Fatigue (0/1): "))
+k = int(input("Enter k: "))
+
+# Train and predict
+model = KNeighborsClassifier(n_neighbors=k)
+model.fit(X, y)
+prediction = model.predict([[fever, cough, fatigue]])
+
+if prediction[0] == 1:
+    print("Patient has the condition")
+else:
+    print("Patient does not have the condition")
