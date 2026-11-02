@@ -1,0 +1,37 @@
+ 
+import pandas as pd
+import matplotlib.pyplot as plt
+import re, os
+from collections import Counter
+
+if not os.path.exists("data.csv"):
+    pd.DataFrame({"feedback": [
+        "The product is good",
+        "Good product and excellent service",
+        "The product is excellent",
+        "Good service and quality"
+    ]}).to_csv("data.csv", index=False)
+
+df = pd.read_csv("data.csv")
+stop = {"the", "and", "is", "a", "an", "to", "of", "very"}
+
+words = []
+for text in df["feedback"].dropna():
+    words += [w for w in re.sub(r"[^\w\s]", "", text.lower()).split()
+              if w not in stop]
+
+N = int(input("Enter top N words: "))
+top = Counter(words).most_common(N)
+
+for word, count in top:
+    print(word, ":", count)
+
+if top:
+    w, c = zip(*top)
+    plt.bar(w, c)
+    plt.xlabel("Words")
+    plt.ylabel("Frequency")
+    plt.title("Word Frequency Distribution")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
