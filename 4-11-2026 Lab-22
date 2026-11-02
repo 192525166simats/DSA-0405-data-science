@@ -1,0 +1,25 @@
+
+import pandas as pd
+from scipy import stats
+import os
+
+if not os.path.exists("customer_reviews.csv"):
+    pd.DataFrame({"Rating": [4, 5, 3, 4, 5, 4, 3, 5, 4, 5]}).to_csv(
+        "customer_reviews.csv", index=False)
+
+df = pd.read_csv("customer_reviews.csv")
+ratings = df["Rating"].dropna()
+
+mean = ratings.mean()
+ci = stats.t.interval(0.95, len(ratings)-1,
+                      loc=mean, scale=stats.sem(ratings))
+
+print("Average Rating:", round(mean, 2))
+print("95% Confidence Interval:", ci)
+
+if mean >= 4:
+    print("Customer Satisfaction: High")
+elif mean >= 3:
+    print("Customer Satisfaction: متوسط")
+else:
+    print("Customer Satisfaction: Low")
