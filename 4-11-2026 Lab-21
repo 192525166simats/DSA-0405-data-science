@@ -1,0 +1,30 @@
+ 
+import numpy as np
+import pandas as pd
+from scipy import stats
+import os
+
+# Create CSV automatically if missing
+if not os.path.exists("rare_elements.csv"):
+    pd.DataFrame({"Concentration": [12, 15, 14, 18, 16, 13, 17, 19,
+                                    11, 15, 14, 16, 18, 13, 20,
+                                    12, 17, 15, 16, 14]}).to_csv(
+                                        "rare_elements.csv", index=False)
+
+data = pd.read_csv("rare_elements.csv").iloc[:, 0].dropna().to_numpy()
+
+n = int(input("Enter sample size: "))
+level = float(input("Enter confidence level (e.g. 95): "))
+precision = float(input("Enter desired precision: "))
+
+sample = np.random.choice(data, min(n, len(data)), replace=False)
+mean = np.mean(sample)
+ci = stats.t.interval(level / 100, len(sample)-1,
+                      loc=mean, scale=stats.sem(sample))
+
+print("Estimated Mean:", round(mean, 2))
+print("95% Confidence Interval:", np.round(ci, 2))
+print("Margin of Error:", round(ci[1] - mean, 2))
+print("Desired precision:", precision)
+print("Precision achieved:", ci[1] - mean <= precision)
+n
