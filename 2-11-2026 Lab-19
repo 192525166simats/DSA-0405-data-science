@@ -1,0 +1,13 @@
+
+import numpy as np
+from scipy import stats
+
+drug = [12, 10, 15, 8, 11, 14, 9, 13, 10, 12]
+placebo = [4, 3, 5, 2, 6, 4, 3, 5, 2, 4]
+
+for name, data in [("Drug", drug), ("Placebo", placebo)]:
+    mean = np.mean(data)
+    ci = stats.t.interval(0.95, len(data)-1,
+                          loc=mean, scale=stats.sem(data))
+    print(name, "Mean Reduction:", round(mean, 2))
+    print("95% Confidence Interval:", np.round(ci, 2))
