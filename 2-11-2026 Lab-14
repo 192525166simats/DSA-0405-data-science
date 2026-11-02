@@ -1,0 +1,20 @@
+import pandas as pd
+sales_data = pd.DataFrame({
+    'Customer_Age': [20, 25, 20, 30, 25, 35, 20, 30],
+    'Purchase_Date': [
+        '2026-10-02', '2026-10-05', '2026-10-08',
+        '2026-10-10', '2026-10-12', '2026-10-15',
+        '2026-10-20', '2026-10-25'
+    ]
+})
+sales_data['Purchase_Date'] = pd.to_datetime(
+    sales_data['Purchase_Date']
+)
+monthly_data = sales_data[
+    (sales_data['Purchase_Date'] >= '2026-10-01') &
+    (sales_data['Purchase_Date'] <= '2026-10-31')
+]
+frequency = monthly_data['Customer_Age'].value_counts().sort_index()
+
+print("Frequency Distribution of Customer Ages:")
+print(frequency)
