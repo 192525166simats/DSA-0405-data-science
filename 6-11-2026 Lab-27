@@ -1,0 +1,23 @@
+from sklearn.linear_model import LogisticRegression
+X = [
+    [100, 1],
+    [200, 2],
+    [300, 3],
+    [400, 4],
+    [500, 12],
+    [600, 18],
+    [700, 24],
+    [800, 36]
+]
+y = [1, 1, 1, 1, 0, 0, 0, 0]
+model = LogisticRegression()
+model.fit(X, y)
+
+usage = float(input("Enter usage minutes: "))
+duration = float(input("Enter contract duration in months: "))
+prediction = model.predict([[usage, duration]])
+
+if prediction[0] == 1:
+    print("Customer will Churn")
+else:
+    print("Customer will Not Churn")
