@@ -1,0 +1,30 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+control = [45, 48, 50, 47, 46, 49, 51, 44]
+treatment = [35, 38, 40, 36, 37, 39, 34, 38]
+
+t, p = stats.ttest_ind(control, treatment)
+
+print("Control Mean:", np.mean(control))
+print("Treatment Mean:", np.mean(treatment))
+print("P-value:", round(p, 4))
+
+if p < 0.05:
+    print("Significant treatment effect")
+else:
+    print("No significant treatment effect")
+
+plt.bar(["Control", "Treatment"],
+        [np.mean(control), np.mean(treatment)])
+plt.ylabel("Measured Value")
+plt.title("Control vs Treatment")
+plt.show()
+
+plt.bar(["P-value", "Significance Level"],
+        [p, 0.05])
+plt.ylabel("Value")
+plt.title("P-value Analysis")
+plt.show()
