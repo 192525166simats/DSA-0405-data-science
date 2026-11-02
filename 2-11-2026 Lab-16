@@ -1,0 +1,23 @@
+ 
+import pandas as pd
+from collections import Counter
+import re
+
+data = pd.DataFrame({
+    'Review': [
+        'Product is good',
+        'Product is excellent',
+        'Good product and good quality'
+    ]
+})
+
+words = []
+
+for review in data['Review']:
+    words.extend(re.findall(r'\b[a-z]+\b', review.lower()))
+
+frequency = Counter(words)
+
+print("Frequency Distribution of Words:")
+for word, count in sorted(frequency.items()):
+    print(word, ":", count)
