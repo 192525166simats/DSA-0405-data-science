@@ -1,0 +1,13 @@
+
+from collections import Counter
+import re
+with open("sample_text.txt", "w", encoding="utf-8") as file:
+    file.write("Python is easy. Python is useful. Data analysis is easy.")
+with open("sample_text.txt", "r", encoding="utf-8") as file:
+    text = file.read()
+words = re.findall(r"\b[a-z]+\b", text.lower())
+frequency = Counter(words)
+
+print("Word Frequency Distribution:")
+for word, count in frequency.items():
+    print(word, ":", count)
